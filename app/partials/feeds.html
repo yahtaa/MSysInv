@@ -1,0 +1,27 @@
+<html ng-app='feedModule'>
+<head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+  	<link rel="stylesheet" type="text/css" href="../css/app.css">
+</head>
+ 
+<body ng-controller='FeedCtrl'>
+ 
+<div ng-repeat="feed in feeds | orderBy:'title'">
+    <h2><a href="{{feed.link}}" target="_blank">{{feed.title}} Blog</a></h2><hr>
+    <p><ul class="blogList" ng-repeat="item in feed.entries">
+        <li><a href="{{item.link}}" target="_blank">{{item.title}}</a></li>
+        
+        <br />
+    </ul></p>
+
+</div>
+ 
+<script src="../js/feeds.js"></script>
+     
+</body>
+</html>

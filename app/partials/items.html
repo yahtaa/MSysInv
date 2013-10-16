@@ -1,0 +1,38 @@
+<div class="row">
+	<div id="leftContent" class="col-md-12" >
+		Search: 
+		<input ng-model="query">
+		Sort by:
+		<select ng-model="orderProp">
+  			<option value="name">Alphabetical</option>
+  			<option value="trackingid">Tracking</option>
+  			<option value="amount">Amount On Hand</option>
+		</select> 
+    <table class="table table-bordered inventory">
+<thead>
+<h2>Inventory</h2>
+</thead>
+<tr>
+<th>Location</th>
+<th>Bin</th>
+<th>Tracking ID</th>
+<th>Description</th>
+<th></th>
+<th>Amount On Hand</th>
+<th>Cost</th>
+</tr>
+ <tr ng-repeat="item in bullion | filter:query | orderBy:orderProp">
+ 	<td ng-model="title">{{item.location}}</td>
+ 	<td>{{item.bin}}</td>
+    <td>{{item.trackingid}}</td> 
+    <td>{{item.description}}</td>
+    <td><img ng-src="{{item.img}}" width="300px"></td>
+    <td>{{item.amount}}</td>
+    <td>{{item.cost}}</td>
+    <td>
+      <a href="#/inventory/edit/{{item._id.$oid}}"><i class="icon-pencil"></i></a>
+    </td>
+  </tr>
+</table>
+	</div>
+</div>
