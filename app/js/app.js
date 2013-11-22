@@ -23,7 +23,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
     $routeProvider.when('/purchase', {templateUrl: 'partials/purchase.html', controller: 'InventoryPurchaseCtrl'});
     $routeProvider.otherwise({redirectTo: '/'});
 
-	RestangularProvider.setBaseUrl('https://api.mongolab.com/api/1/databases/sbcj_inventory/collections');
+	RestangularProvider.setBaseUrl('https://api.mongolab.com/api/1/databases/inventory/collections');
 	RestangularProvider.setDefaultRequestParams({ apiKey: 'DWtgIWdHqDtb-QZoKrcpQON63w4vb0Xh' })
 	RestangularProvider.setRestangularFields({
 	id: '_id.$oid'
