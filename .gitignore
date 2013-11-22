@@ -1,3 +1,4 @@
 app/inventory/*
+app/img/*
 logs/*
 !.gitkeep

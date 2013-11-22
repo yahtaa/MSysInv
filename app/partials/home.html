@@ -1,1 +1,9 @@
-This is a langing page!
+<form class="message col-md-10" ng-repeat="content in messages">
+
+	<h2>{{content.title}}</h2>
+	<p>{{content.message}}</p>
+	<div class="messageControls pull-right">
+		 <a href="#/message/edit/{{content._id.$oid}}"><i class="icon-pencil"></i></a>
+		 
+	</div>	
+</form>

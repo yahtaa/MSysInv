@@ -2,10 +2,11 @@
 <html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
-  <title>SBCJ - {{location}}</title>
+  <title>M-Sys Inventory</title>
    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css">
 
   <link rel="stylesheet" href="css/app.css"/>
 
@@ -14,42 +15,28 @@
 <body>
 <div class="container">
 <header>
-<div class="page-header"><a href="#"><h1>SBCJ - Ringgold</h1></a></div>
-</header>
+<div class="page-header"><a href="#"><h1>M-Sys Inventory</h1></a>
 <nav>  
-  <ul class="nav nav-pills">
-    <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-      Bullion <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-       <li><a href="#/inventory/bullgold">Gold Bullion</a></li>
-       <li><a href="#/inventory/bullsilver">Silver Bullion</a></li>
-       <li><a href="#/inventory/bullplatinum">Platinum Bullion</a></li>
-       <li><a href="#/inventory/bullpalladium">Palladium Bullion</a></li>
-        <li><a href="#/inventory/bullcopper">Copper Bullion</a></li>
-    </ul>
-    </li>
-    <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-      Gold Jewelry <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-       <li><a href="#/inventory/goldbracelets">Gold Bracelets</a></li>
-       <li><a href="#/inventory/goldearrings">Gold Earrings</a></li>
-       <li><a href="#/inventory/goldrings">Gold Rings</a></li>
-    </ul>
-    </li>
-    <li><a href="#/contact">Contact</a></li>
+  <ul id="main-nav" class="nav nav-pills">
+    <li><a href="#">Home</a></li>
+    <li><a href="#/purchase">Purchase</a></li>
+    <li><a href="#/inventory">Inventory</a></li>
+    <li><a href="#">Reports</a></li>
+     <ul id="admin-nav" class="nav nav-pills pull-right">
+    <li><a href="#/messageNew">Create Message</a></li>
   </ul>
+  </ul>
+ 
+    </nav>
+    </div>
+</header>
 
-  
-</nav>
-
+  <div class="content">
   <div ng-view></div>
   <!-- <iframe id="sidebar" seamless src="partials/feeds.html"  scrolling="no"></iframe> -->
-
-  <footer>SBCJ Inventory App</footer>
+  </div>
+  <footer class="navbar navbar-default navbar-fixed-bottom" role="footer" style="padding: 0 1%">
+  <span class="pull-right">Inventory-MSys App: 2013&copy; Derrick Mull</span></footer>
 </div>
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
@@ -64,6 +51,7 @@
   <script src="js/directives.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
   <!-- <script src="js/feeds.js"></script> -->
 
 </body>

@@ -1,38 +1,66 @@
 <div class="row">
 	<div id="leftContent" class="col-md-12" >
-		Search: 
-		<input ng-model="query">
+  <form role="form" class="col-md-3">
+  
+	  Jewelry:
+    <select class="form-control" ng-model="query">
+      <option hidden value="empty"></option>
+     
+      <option value="Gold Bracelets">Gold Bracelets</option>
+      <option value="Gold Rings">Gold Rings</option>
+      <option value="Gold Earrings">Gold Earrings</option>
+    </select>
+    Bullion:
+    <select class="form-control" ng-model="query">
+      <option value="Gold Bullion">Gold Bullion</option>
+      <option value="Silver Bullion">Silver Bullion</option>
+      <option value="Platinum Bullion">Platinum Bullion</option>
+      <option value="Palladium Bullion">Palladium Bullion</option>
+      <option value="Copper Bullion">Copper Bullion</option>
+    </select>
+    Numismatics
+    <select class="form-control" ng-model="query">
+      <option value="Numismatic">Numismatic</option>
+      <option value="Numismatic Face Value">Numismatic Face Value</option>
+    </select>
 		Sort by:
-		<select ng-model="orderProp">
+		<select class="form-control" ng-model="orderProp">
   			<option value="name">Alphabetical</option>
-  			<option value="trackingid">Tracking</option>
+  			<option value="trackingid">Tracking #</option>
   			<option value="amount">Amount On Hand</option>
-		</select> 
-    <table class="table table-bordered inventory">
+		</select>
+    
+    </form> 
+    </div>
+    </div>
+    <div class="row">
+<table class="table table-hover table-bordered inventory">
 <thead>
-<h2>Inventory</h2>
+<h2 style="display: inline-block">Inventory</h2>
+<a href="#/new" style="margin-left: 18px;"><span class="btn btn-primary">Add New Item</span></a> 
 </thead>
 <tr>
-<th>Location</th>
-<th>Bin</th>
-<th>Tracking ID</th>
+<!-- <th>Location</th> -->
+<th>Category</th>
+<th>Tracking #</th>
 <th>Description</th>
 <th></th>
 <th>Amount On Hand</th>
 <th>Cost</th>
 </tr>
- <tr ng-repeat="item in bullion | filter:query | orderBy:orderProp">
- 	<td ng-model="title">{{item.location}}</td>
- 	<td>{{item.bin}}</td>
+ <tr ng-repeat="item in inventory | filter:query | orderBy:orderProp">
+ 	<!-- <td ng-model="title">{{item.location}}</td> -->
+  
+ 	<td><a ng-click="binClick()">{{item.bin}}</a></td>
     <td>{{item.trackingid}}</td> 
     <td>{{item.description}}</td>
-    <td><img ng-src="{{item.img}}" width="300px"></td>
+    <td><img ng-src="{{item.img}}" class="invImage"></td>
     <td>{{item.amount}}</td>
-    <td>{{item.cost}}</td>
+    <td>{{item.current * item.amount}}</td>
     <td>
       <a href="#/inventory/edit/{{item._id.$oid}}"><i class="icon-pencil"></i></a>
     </td>
   </tr>
 </table>
-	</div>
+	
 </div>

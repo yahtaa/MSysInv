@@ -1,27 +1,51 @@
-<form name="myForm">
-        <div class="control-group" ng-class="{error: myForm.bin.$invalid}">
-          <label>Bin</label>
-          <input type="text" name="name" ng-model="item.bin" required>
-          <span ng-show="myForm.name.$error.required" class="help-inline">
-              Required</span>
+<div class="row">
+<form role="form" class="col-md-5" name="myForm">
+        <div class="form-group" ng-class="{error: myForm.bin.$invalid}">
+          <label for="bin">Bin</label>
+            <select class="form-control" ng-model="inventory.bin" required>
+              <optgroup label="Jewelry">
+                <option value="AJLR">AJLR</option>
+                <option value="Gold Bracelets">Gold Bracelets</option>
+                <option value="Gold Rings">Gold Rings</option>
+                <option value="Gold Earrings">Gold Earrings</option>
+              <optgroup label="Bullion">
+                <option value="Gold Bullion">Gold Bullion</option>
+                <option value="Silver Bullion">Silver Bullion</option>
+                <option value="Platinum Bullion">Platinum Bullion</option>
+                <option value="Palladium Bullion">Palladium Bullion</option>
+                <option value="Copper Bullion">Copper Bullion</option>
+              <optgroup label="Coins">
+                <option value="Numismatic">Numismatic</option>
+                <option value="Numismatic Face Value">Numismatic Face Value</option>
+            </select>
         </div>
-      
-        <div class="control-group" ng-class="{error: myForm.description.$invalid}">
-          <label>Description</label>
-          <input type="url" name="site" ng-model="item.description" required>
-          <span ng-show="myForm.site.$error.required" class="help-inline">
-              Required</span>
-          <span ng-show="myForm.site.$error.url" class="help-inline">
-              Not a URL</span>
+        
+        <div class="form-group" ng-class="{error: myForm.description.$invalid}">
+          <label for="description">Description</label>
+          <textarea type="text"  class="form-control" name="description" id="description" ng-model="inventory.description" placeholder="Enter Description" ></textarea>
         </div>
-      
-        <label>amount</label>
-        <textarea name="description" ng-model="item.amount"></textarea>
-      
+        <div class="form-group" ng-class="{error: myForm.trackingid.$invalid}">
+          <label for="trackingid">Tracking ID</label>
+          <input type="text"  class="form-control" name="trackingid" id="trackingid" ng-model="inventory.trackingid" placeholder="Enter Tracking ID" ></textarea>
+        </div>
+        
+         <div class="form-group" ng-class="{error: myForm.current.$invalid}">
+          <label for="cost">Cost</label>
+          <input type="text"  class="form-control" name="cost" id="cost" ng-model="inventory.current" placeholder="Enter Cost" ></textarea>
+        </div>
+        <div class="form-group">
+        <label for="amount">Amount</label>
+        <input  type="number" name="amount" id="amount" class="form-control" ng-model="inventory.amount">
+        </div>
+        <div class="form-group" ng-class="{error: myForm.image.$invalid}">
+          <label for="image">Image</label>
+          <input type="text"  class="form-control" name="image" id="image" ng-model="inventory.img" />
+        </div>
         <br>
-        <a href="#/" class="btn">Cancel</a>
-        <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+        <a href="#/" class="btn btn-info">Cancel</a>
+        <button ng-click="save()" 
                 class="btn btn-primary">Save</button>
-        <button ng-click="destroy()"
-                ng-show="project._id" class="btn btn-danger">Delete</button>
+        <button ng-click="destroy()" ng-show="inventory._id" class="btn btn-danger">Delete</button>
       </form>
+      <img class="col-md-5 detailImage" ng-src="{{inventory.img}}">
+      </div>

@@ -1,0 +1,13 @@
+<form class="col-md-6">
+	<label for="title">Subject</label>
+	<input class="form-control" type="text" id="title" ng-model="messages.title" required/>
+	<label for="message">Message</label>
+	<textarea class="form-control" rows="6" id="message" ng-model="messages.message" required></textarea>
+	{{ now | date:'dd/MM/yyyy' }}
+	<br />
+	<button type="submit" class="btn btn-primary" ng-click="save()">Submit</button>
+	<button ng-click="destroy()" ng-show="messages._id" class="btn btn-danger">Delete</button>
+
+</form>
+
+<script></script>

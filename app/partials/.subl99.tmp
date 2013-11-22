@@ -1,0 +1,84 @@
+<div class="row">
+  
+     <ul>      
+      <li class="btn btn-danger" ng-click="scrap = ! scrap">Scrap</li>
+      <li class="btn btn-warning" ng-click="numismatic = ! numismatic">Numismatic</li>
+      <!-- <option value="Numismatic Face Value" ng-model="NumismaticFaceValue"> -->
+      </ul>
+    
+</div>
+
+<div class="row">
+  <div style="background: transparent" class="check-element animate-hide" ng-show="scrap" >
+    <h2>Scrap</h2>
+    
+    <form class="col-md-6">      
+      <div class="col-md-12">
+        <label for="karat">Karat</label>
+        <select class="form-control" id="karat" ng-model="karat">
+          <option  ng-repeat="value in purity" value="{{value.value}}">{{value.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" ng-model="description" > </textarea>
+      </div>
+      <div class="col-md-12">
+      <label for="spot">Spot</label>
+      <input class="form-control" id="spot" type="number" ng-model="spot" >
+      </div>
+      <div class="col-md-12">
+      <label for="percent">Pay Percent</label>
+      0<input class="form-control" id="spot" ng-model="percentage" type="range" min="0.01" max="100">100 {{percentage}}
+   <!--    <select class="form-control" id="percent" ng-model="percentage">
+        <option ng-repeat="percent in percentpay" value="{{percent.value}}">{{percent.name}}</option>
+      </select> -->
+
+      </div>
+      <div class="col-md-12">
+      <label for="weight">Actual Weight (dwt)</label>
+      <input class="form-control" id="weight" type="number" ng-model="actualWeight">
+      </div>
+      <div class="col-md-12">
+      <label for="weight">Estimated Weight (dwt)</label>
+      <input class="form-control" id="weight" type="number" ng-model="estimatedWeight">
+      </div>
+    </form>
+  
+  <div class="col-md-6" >
+    <input data-ng-model="newLine.amount" / hidden><h3 style="margin-bottom:0">Offer: {{getTotal() | currency}}</h3> </input> 
+    <br /> 
+    <button data-ng-click="addQuote()" class="btn btn-info">Add To Quote</button>
+  </div>  
+  </div>
+</div>
+<div class="row">
+    <div class="check-element animate-hide" ng-show="numismatic">
+      <h2>Numismatic</h2>
+    </div>
+</div>
+    <div class="row">
+      <div class="col-md-5">
+        <h2>Quote</h2>
+        <div>
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th></th>
+              <th>Actual Weight</th>
+              <th>Estimated Weight</th>
+              <th>Description</th>
+              <th>Offer</th>
+            </tr>
+            <tr data-ng-repeat="quo in quote">
+              <td><button data-ng-click="acceptOffer()">Accept</button></td>
+              <td>{{ quo.actualWeight }}</td>
+              <td>{{ quo.estimatedWeight }}</td>
+              <td>{{ quo.description }} - ({{ quo.karat }})</td>
+              <td ng-model="offer">{{ quo.total | currency }}</td>
+            </tr>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,13 @@
+<div id="login">
+
+	<form class="form-group" ng-submit="login()">
+	  <label>E-Mail:</label> 
+	  <input class="form-control" type="text" name="email" placeholder="Email" ng-model="credentials.email" required />
+      <label>Password:</label> 
+     <input class="form-control" type="password" name="password" placeholder="Password" ng-model="credentials.password" required /><br />
+      <button type="submit" class="btn btn-primary">Login</button>
+	</form>
+  
+	
+	<a href="#/sign-up"><button class="btn btn-danger menu-btns">Sign Up</button></a>
+</div>
