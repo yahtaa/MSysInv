@@ -151,7 +151,8 @@ var app = angular.module('myApp.controllers',[]);
             karat: $scope.karat,
             description: $scope.description,
             actualWeight: $scope.actualWeight + 'dwt',
-            estimatedWeight: $scope.estimatedWeight + 'dwt'
+            estimatedWeight: $scope.estimatedWeight + 'dwt',
+            percent: $scope.percentage * 100 + '%'
         
          })
         }
@@ -161,6 +162,7 @@ var app = angular.module('myApp.controllers',[]);
         $scope.weight = "";
         $scope.actualWeight = "",
         $scope.estimatedWeight = ""
+        $scope.description = ""
       }
       
    
