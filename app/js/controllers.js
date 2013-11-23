@@ -140,29 +140,36 @@ var app = angular.module('myApp.controllers',[]);
         $scope.quote = quoteFactory.getQuote();
       }
 
+            
+      function emptyFields() {
+      $scope.description = "";
+      $scope.karat = 0;
+      $scope.actualWeight = 0;
+      $scope.estimatedWeight = 0;
+      $scope.percent = 0;
+      $scope.spot = 0;
+      }   
+      emptyFields();
+      
       $scope.addQuote = function() {
-
         if ($scope.estimatedWeight > $scope.actualWeight) {
           toastr.error("Estimated weight cannot be greater than actual weight.");
-          exit;
+          return;
+        } else if (($scope.description == "") || ($scope.spot == 0) || ($scope.karat == "") || ($scope.actualWeight == 0) || ($scope.estimatedWeight == 0) || ($scope.percent < 0.00)) {
+            toastr.error("Please ensure all the fucking fields are completed.");
+            return; 
         } else {
           $scope.quote.push({ 
             total: ((($scope.karat * $scope.spot) * $scope.percentage) / 20) * $scope.estimatedWeight,
-            karat: $scope.karat,
+            karat: $scope.karat * 100,
             description: $scope.description,
-            actualWeight: $scope.actualWeight + 'dwt',
-            estimatedWeight: $scope.estimatedWeight + 'dwt',
-            percent: $scope.percentage * 100 + '%'
-        
-         })
+            actualWeight: $scope.actualWeight,
+            estimatedWeight: $scope.estimatedWeight,
+            percent: $scope.percentage * 100,
+            spot: $scope.spot
+          })
         }
-        $scope.karat = "";
-        $scope.spot = "";
-        $scope.percentage = "";
-        $scope.weight = "";
-        $scope.actualWeight = "",
-        $scope.estimatedWeight = ""
-        $scope.description = ""
+        emptyFields();
       }
       
    
