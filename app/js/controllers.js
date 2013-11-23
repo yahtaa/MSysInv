@@ -102,16 +102,16 @@ var app = angular.module('myApp.controllers',[]);
   });
   
   app.controller("InventoryPurchaseCtrl",
-    function InventoryPurchaseCtrl($scope, quoteFactory){
+    function InventoryPurchaseCtrl($scope, quoteFactory, $location, Restangular){
       $scope.purity = [
       {name: "10k", value: 0.395},
       {name: "14k", value: 0.568},
       {name: "18k", value: 0.740},
       {name: "22k", value: 0.916},
-      {name: "sterling", value: 0.925},
-      {name: "pure", value: 0.999},
-      {name: "90%", value: 0.900},
-      {name: "95%", value: 0.950}
+      {name: "Sterling Silver", value: 0.925},
+      {name: ".999", value: 0.999},
+      {name: "90% Platinum", value: 0.900},
+      {name: "95% Platinum", value: 0.950}
         ];
       $scope.percentpay = [
       {name: "50%", value: 0.500},
@@ -125,22 +125,26 @@ var app = angular.module('myApp.controllers',[]);
       {name: "90%", value: 0.900}
       ];
       
-      
+      // BEGIN QUOTE CREATION      
 
+      //Previews the line item quote before submission
       $scope.getTotal = function() {
         var total = ((($scope.karat * $scope.spot) * $scope.percentage) / 20) * $scope.estimatedWeight;
         return total
       }
 
+
+      //Holds quotes
       $scope.quote = [];
 
       init();
 
+      // init the quote factory
       function init() {
         $scope.quote = quoteFactory.getQuote();
       }
 
-            
+      // Empties quoting fields      
       function emptyFields() {
       $scope.description = "";
       $scope.karat = 0;
@@ -150,13 +154,14 @@ var app = angular.module('myApp.controllers',[]);
       $scope.spot = 0;
       }   
       emptyFields();
-      
+
+      // Adds quote to offer
       $scope.addQuote = function() {
         if ($scope.estimatedWeight > $scope.actualWeight) {
-          toastr.error("Estimated weight cannot be greater than actual weight.");
+          toastr.error("Estimated weight cannot be greater than actual weight. Dingus!");
           return;
         } else if (($scope.description == "") || ($scope.spot == 0) || ($scope.karat == "") || ($scope.actualWeight == 0) || ($scope.estimatedWeight == 0) || ($scope.percent < 0.00)) {
-            toastr.error("Please ensure all the fucking fields are completed.");
+            toastr.error("Please ensure all the fields are completed.");
             return; 
         } else {
           $scope.quote.push({ 
@@ -172,7 +177,7 @@ var app = angular.module('myApp.controllers',[]);
         emptyFields();
       }
       
-   
+      // Adds line item quotes together
       $scope.offerTotal = function() {
         var offer = 0;
         for (var i=0; i < $scope.quote.length; i++){
@@ -181,5 +186,15 @@ var app = angular.module('myApp.controllers',[]);
         }
         return offer;
       }
+
+      // END QUOTE CREATION
+
+      // BEGIN OFFER POST TO DB
+      $scope.save = function() {
+        Restangular.all('quote').post($scope.quote).then(function(quote){
+          $location.path('#/offer')
+        }); 
+      };
+
 
     });

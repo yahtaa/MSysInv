@@ -69,7 +69,7 @@
 
         </table></form>
         <hr />
-        <div ng-model="PurchaseOrder">
+        <form>
           <table class="table table-hover table-bordered">
             <thead ><h2 style="float: left">Quote</h2><h3 style="float: right">PO#:</h3></thead>
             <tr>
@@ -85,9 +85,9 @@
               <td ng-model="totals">{{ quo.total | currency }}</td>
             </tr>
           </table>
-          <button class="btn btn-info"ng-click="submitQuote()">Complete PO</button>
-          <h2 class="pull-right">Total: {{offerTotal() | currency}}</h2>
-        </div>
+          <button class="btn btn-info"ng-click="save()">Complete PO</button>
+          <h2 class="pull-right" ng-model="quote.offerTotal">Total: {{offerTotal() | currency}}</h2>
+        </form>
       </div>
     </div>
     <div class="row">
