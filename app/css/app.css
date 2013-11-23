@@ -15,8 +15,8 @@
 #description {
   resize: none;
 }
-.content {
-  
+#purchase {
+  margin-bottom:40px;
 }
 
 #sidebar {
@@ -58,10 +58,10 @@ iframe {
 
 .animate-hide.ng-hide-add, 
 .animate-hide.ng-hide-remove {
-  -webkit-transition:all linear 0.5s;
-  -moz-transition:all linear 0.5s;
-  -o-transition:all linear 0.5s;
-  transition:all linear 0.5s;
+  -webkit-transition:all  1s;
+  -moz-transition:all  1s;
+  -o-transition:all  1s;
+  transition:all  1s;
   display:block!important;
 }
  
