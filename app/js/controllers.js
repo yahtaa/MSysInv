@@ -101,8 +101,8 @@ var app = angular.module('myApp.controllers',[]);
        };
   });
   
-  app.controller("InventoryPurchaseCtrl",
-    function InventoryPurchaseCtrl($scope, quoteFactory, $location, Restangular){
+  app.controller("ScrapPurchaseNewCtrl",
+    function ScrapPurchaseNewCtrl($scope, quoteFactory, $location, Restangular){
       $scope.purity = [
       {name: "10k", value: 0.395},
       {name: "14k", value: 0.568},
@@ -187,14 +187,70 @@ var app = angular.module('myApp.controllers',[]);
         return offer;
       }
 
+      $scope.getDate = function() {
+        var now = new Date();
+        return now ;
+      }
+
       // END QUOTE CREATION
 
       // BEGIN OFFER POST TO DB
       $scope.save = function() {
+        var now = $scope.getDate();
+        // function showQuote () {
+          $scope.quote.push({
+            createdOn: $scope.getDate()
+          })
+
+        // }
         Restangular.all('quote').post($scope.quote).then(function(quote){
-          $location.path('#/offer')
+          $location.path('#/scrap')
         }); 
       };
 
 
+    });
+  app.controller('ScrapPurchaseEditCtrl',
+    function ScrapPurchaseEditCtrl($scope, Restangular, $location, $route, inventory) {
+      var original = inventory;
+      $scope.inventory = Restangular.copy(original);
+
+       $scope.isClean = function() {
+        return angular.equals(original, $scope.inventory);
+       }
+       $scope.destroy = function() {
+        original.remove().then(function(){
+          $location.path('#/inventory');
+        });
+       };
+       $scope.save = function() {
+        $scope.inventory.put().then(function() {
+          alert("Item Updated");
+          $route.reload();
+        });
+       };
+  });
+  app.controller('ScrapPurchaseEditCtrl', 
+    function ScrapPurchaseEditCtrl($scope, $routeParams, Restangular) {             
+      $scope.quote = Restangular.all('quote').getList($routeParams.categoryId);      
+  });
+  app.controller('ScrapPurchaseShowCtrl',
+    function messageEditController($scope, Restangular, $location, $route, messages) {
+      var original = messages;
+      $scope.messages = Restangular.copy(original);
+
+      $scope.isClean = function() {
+        return angular.equals(original, $scope.messages);
+      }
+      $scope.destroy = function() {
+        original.remove().then(function(){
+          $location.path('#/');
+        });
+      };
+      $scope.save = function() {
+        $scope.messages.put().then(function() {
+          alert("Message Updated");
+          $location.path('#/')
+        });
+      };
     });

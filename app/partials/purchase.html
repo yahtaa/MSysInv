@@ -52,7 +52,7 @@
             <td>      
               <textarea class="form-control" id="description" rows="5" ng-model="description" noresize > </textarea>
             </td>
-
+           
           </tr>
         </table>
         <table style="margin-bottom:20px">
@@ -83,10 +83,11 @@
               <td>{{ quo.estimatedWeight }}</td>
               <td>{{ quo.description }} <br /> Karat: ({{ quo.karat }}%) @ {{quo.percent}}% <br />Spot: {{quo.spot | currency}}</td>
               <td ng-model="totals">{{ quo.total | currency }}</td>
+              <td hidden>{{quo.createdOn | date:'medium'}}</td>
             </tr>
           </table>
-          <button class="btn btn-info"ng-click="save()">Complete PO</button>
-          <h2 class="pull-right" ng-model="quote.offerTotal">Total: {{offerTotal() | currency}}</h2>
+          <button class="btn btn-info" ng-click="save()">Complete PO</button>
+          <h2 class="pull-right">Total: {{offerTotal() | currency}}</h2>
         </form>
       </div>
     </div>

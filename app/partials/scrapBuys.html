@@ -1,0 +1,16 @@
+<div ng-repeat="quo in quote">
+
+	<table>
+		<tr>
+			<th>Customer Name</th>
+			<th>Purchase Order #</th>
+			<th>PO Total</th>
+		</tr>
+		<tr>
+			<td> Todo</td>
+			<td>{{quo._id.$oid}}</td>
+			<td>{{quo.total}}</td>
+			<td>{{quo.createdOn | date:'medium'}}</td>
+		</tr>
+	</table>
+</div>
