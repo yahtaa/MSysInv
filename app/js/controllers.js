@@ -230,10 +230,12 @@ var app = angular.module('myApp.controllers',[]);
         });
        };
   });
-  app.controller('ScrapPurchaseEditCtrl', 
-    function ScrapPurchaseEditCtrl($scope, $routeParams, Restangular) {             
-      $scope.quote = Restangular.all('quote').getList($routeParams.categoryId);      
+  app.controller('ScrapPurchaseListCtrl', 
+    function ScrapPurchaseListCtrl($scope, $routeParams, Restangular) {             
+      $scope.quote = Restangular.all('quote').getList($routeParams.categoryId;
+           
   });
+  
   app.controller('ScrapPurchaseShowCtrl',
     function messageEditController($scope, Restangular, $location, $route, messages) {
       var original = messages;

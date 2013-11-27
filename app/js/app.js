@@ -38,7 +38,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
 
   // RESTANGULAR SETTINGS
 	RestangularProvider.setBaseUrl('https://api.mongolab.com/api/1/databases/inventory/collections');
-  RestangularProvider.setDefaultRequestParams({ apiKey: 'Gw0xcBFjbly_QRuA9-uYqhK5zqMGu1Sv' })
+  RestangularProvider.setDefaultRequestParams({ apiKey: '2rkCE0w9ldCbPxXif0YDKgnL4c-u464W' })
 	RestangularProvider.setRestangularFields({
 	  id: '_id.$oid',	
   });	
