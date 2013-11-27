@@ -164,7 +164,7 @@ var app = angular.module('myApp.controllers',[]);
             toastr.error("Please ensure all the fields are completed.");
             return; 
         } else {
-          $scope.quote.push({ 
+          $scope.quote.JSON({ 
             total: ((($scope.karat * $scope.spot) * $scope.percentage) / 20) * $scope.estimatedWeight,
             karat: $scope.karat * 100,
             description: $scope.description,
@@ -196,13 +196,10 @@ var app = angular.module('myApp.controllers',[]);
 
       // BEGIN OFFER POST TO DB
       $scope.save = function() {
-        var now = $scope.getDate();
-        // function showQuote () {
+      var now = $scope.getDate();
           $scope.quote.push({
             createdOn: $scope.getDate()
           })
-
-        // }
         Restangular.all('quote').post($scope.quote).then(function(quote){
           $location.path('#/scrap')
         }); 
@@ -232,7 +229,7 @@ var app = angular.module('myApp.controllers',[]);
   });
   app.controller('ScrapPurchaseListCtrl', 
     function ScrapPurchaseListCtrl($scope, $routeParams, Restangular) {             
-      $scope.quote = Restangular.all('quote').getList($routeParams.categoryId;
+      $scope.quote = Restangular.all('quote').getList($routeParams.categoryId);
            
   });
   
