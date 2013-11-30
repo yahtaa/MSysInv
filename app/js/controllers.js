@@ -23,6 +23,7 @@ var app = angular.module('myApp.controllers',[]);
   //     }
   //   });
   
+  // MESSAGES //
   app.controller('homeController',
     function homeController($scope, $routeParams, Restangular) {
       $scope.messages = Restangular.all('messages').getList($routeParams.categoryId);
@@ -60,7 +61,9 @@ var app = angular.module('myApp.controllers',[]);
         });
       };
     });
+  // END MESSAGES //
 
+  // INVENTORY //
   app.controller('InventoryListCtrl', 
     function InventoryCategoryControl($scope, $routeParams, Restangular) {
              
@@ -100,84 +103,68 @@ var app = angular.module('myApp.controllers',[]);
         });
        };
   });
+
+  // END INVENTORY //
   
   app.controller("ScrapPurchaseNewCtrl",
-    function ScrapPurchaseNewCtrl($scope, quoteFactory, $location, Restangular){
-      $scope.purity = [
-      {name: "10k", value: 0.395},
-      {name: "14k", value: 0.568},
-      {name: "18k", value: 0.740},
-      {name: "22k", value: 0.916},
-      {name: "Sterling Silver", value: 0.925},
-      {name: ".999", value: 0.999},
-      {name: "90% Platinum", value: 0.900},
-      {name: "95% Platinum", value: 0.950}
-        ];
+    function ScrapPurchaseNewCtrl($scope, $location, Restangular, $route, $http){
+      $scope.purity = [ 
+                        {name: "10k", value: 0.395}, {name: "14k", value: 0.568}, {name: "18k", value: 0.740}, {name: "22k", value: 0.916}, 
+                        {name: "Sterling Silver", value: 0.925}, {name: ".999", value: 0.999}, {name: "90% Platinum", value: 0.900}, {name: "95% Platinum", value: 0.950}
+                      ];
       $scope.percentpay = [
-      {name: "50%", value: 0.500},
-      {name: "55%", value: 0.550},
-      {name: "60%", value: 0.600},
-      {name: "65%", value: 0.650},
-      {name: "70%", value: 0.700},
-      {name: "75%", value: 0.750},
-      {name: "80%", value: 0.800},
-      {name: "85%", value: 0.850},
-      {name: "90%", value: 0.900}
-      ];
+                            {name: "50%", value: 0.500}, {name: "55%", value: 0.550}, {name: "60%", value: 0.600}, {name: "65%", value: 0.650},
+                            {name: "70%", value: 0.700}, {name: "75%", value: 0.750}, {name: "80%", value: 0.800}, {name: "85%", value: 0.850},
+                            {name: "90%", value: 0.900}
+                          ];
+
+      // $scope.save = function() {
+      //   Restangular.all('quote').post($scope.quote).then(function(quote){
+      //     $scope.offer = Restangular.all('quote').getList();
+      //   });
+      // };
+
+     
+      $scope.save = function() {
+        var url = 'https://api.mongolab.com/api/1/databases/inventory/collections/quote?apiKey=2rkCE0w9ldCbPxXif0YDKgnL4c-u464W',
+            json = JSON.stringify($scope.quote);
+
+        $http({
+          method: 'POST',
+          url: url,
+          data: json,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(function(response) {
+          $scope.offer = Restangular.all('quote').getList();
+        });
+      };
+
       
-      // BEGIN QUOTE CREATION      
+    });
 
-      //Previews the line item quote before submission
-      $scope.getTotal = function() {
-        var total = ((($scope.karat * $scope.spot) * $scope.percentage) / 20) * $scope.estimatedWeight;
-        return total
-      }
+    
 
+  app.controller('ScrapPurchaseEditCtrl',
+    function ScrapPurchaseEditCtrl($scope, Restangular, $location, $route, quote) {
+      var original = quote;
+      $scope.quote = Restangular.copy(original);
 
-      //Holds quotes
-      $scope.quote = [];
-
-      init();
-
-      // init the quote factory
-      function init() {
-        $scope.quote = quoteFactory.getQuote();
-      }
-
-      // Empties quoting fields      
-      function emptyFields() {
-      $scope.description = "";
-      $scope.karat = 0;
-      $scope.actualWeight = 0;
-      $scope.estimatedWeight = 0;
-      $scope.percent = 0;
-      $scope.spot = 0;
-      }   
-      emptyFields();
-
-      // Adds quote to offer
-      $scope.addQuote = function() {
-        if ($scope.estimatedWeight > $scope.actualWeight) {
-          toastr.error("Estimated weight cannot be greater than actual weight. Dingus!");
-          return;
-        } else if (($scope.description == "") || ($scope.spot == 0) || ($scope.karat == "") || ($scope.actualWeight == 0) || ($scope.estimatedWeight == 0) || ($scope.percent < 0.00)) {
-            toastr.error("Please ensure all the fields are completed.");
-            return; 
-        } else {
-          $scope.quote.JSON({ 
-            total: ((($scope.karat * $scope.spot) * $scope.percentage) / 20) * $scope.estimatedWeight,
-            karat: $scope.karat * 100,
-            description: $scope.description,
-            actualWeight: $scope.actualWeight,
-            estimatedWeight: $scope.estimatedWeight,
-            percent: $scope.percentage * 100,
-            spot: $scope.spot
-          })
-        }
-        emptyFields();
-      }
-      
-      // Adds line item quotes together
+       $scope.isClean = function() {
+        return angular.equals(original, $scope.quote);
+       }
+       $scope.destroy = function() {
+        original.remove().then(function(){
+          $location.path('#/scrap');
+        });
+       };
+       $scope.save = function() {
+        $scope.quote.put().then(function() {
+          alert("Item Updated");
+          $route.reload();
+        });
+      };
       $scope.offerTotal = function() {
         var offer = 0;
         for (var i=0; i < $scope.quote.length; i++){
@@ -186,70 +173,30 @@ var app = angular.module('myApp.controllers',[]);
         }
         return offer;
       }
-
-      $scope.getDate = function() {
-        var now = new Date();
-        return now ;
-      }
-
-      // END QUOTE CREATION
-
-      // BEGIN OFFER POST TO DB
-      $scope.save = function() {
-      var now = $scope.getDate();
-          $scope.quote.push({
-            createdOn: $scope.getDate()
-          })
-        Restangular.all('quote').post($scope.quote).then(function(quote){
-          $location.path('#/scrap')
-        }); 
-      };
-
-
-    });
-  app.controller('ScrapPurchaseEditCtrl',
-    function ScrapPurchaseEditCtrl($scope, Restangular, $location, $route, inventory) {
-      var original = inventory;
-      $scope.inventory = Restangular.copy(original);
-
-       $scope.isClean = function() {
-        return angular.equals(original, $scope.inventory);
-       }
-       $scope.destroy = function() {
-        original.remove().then(function(){
-          $location.path('#/inventory');
-        });
-       };
-       $scope.save = function() {
-        $scope.inventory.put().then(function() {
-          alert("Item Updated");
-          $route.reload();
-        });
-       };
   });
+
   app.controller('ScrapPurchaseListCtrl', 
-    function ScrapPurchaseListCtrl($scope, $routeParams, Restangular) {             
+    function ScrapPurchaseListCtrl($scope, $routeParams, Restangular) {
       $scope.quote = Restangular.all('quote').getList($routeParams.categoryId);
-           
   });
   
-  app.controller('ScrapPurchaseShowCtrl',
-    function messageEditController($scope, Restangular, $location, $route, messages) {
-      var original = messages;
-      $scope.messages = Restangular.copy(original);
+  // app.controller('ScrapPurchaseShowCtrl',
+  //   function messageEditController($scope, Restangular, $location, $route, messages) {
+  //     var original = messages;
+  //     $scope.messages = Restangular.copy(original);
 
-      $scope.isClean = function() {
-        return angular.equals(original, $scope.messages);
-      }
-      $scope.destroy = function() {
-        original.remove().then(function(){
-          $location.path('#/');
-        });
-      };
-      $scope.save = function() {
-        $scope.messages.put().then(function() {
-          alert("Message Updated");
-          $location.path('#/')
-        });
-      };
-    });
+  //     $scope.isClean = function() {
+  //       return angular.equals(original, $scope.messages);
+  //     }
+  //     $scope.destroy = function() {
+  //       original.remove().then(function(){
+  //         $location.path('#/');
+  //       });
+  //     };
+  //     $scope.save = function() {
+  //       $scope.messages.put().then(function() {
+  //         alert("Message Updated");
+  //         $location.path('#/')
+  //       });
+  //     };
+  //   });

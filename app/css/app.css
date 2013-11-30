@@ -87,6 +87,10 @@ iframe {
   background:white;
 }
 
+.content {
+  margin-bottom: 360px;
+}
+
 /*
 .inventory tr th:nth-child(2) {
   width:100px;

@@ -47,14 +47,14 @@ var app = angular.module('myApp.services', ['ngResource']);
 
 // FACTORY FOR SCRAP QUOTE //
 
-  app.factory('quoteFactory', function() {
-  	var quote = {};
-  	var factory = {};
-  	factory.getQuote = function () {
-  		return quote;
-  	};
-  	return factory;
-  })
+  // app.factory('quoteFactory', function() {
+  // 	var quote = [];
+  // 	var factory = {};
+  // 	factory.getQuote = function () {
+  // 		return quote;
+  // 	};
+  // 	return factory;
+  // })
 
 
 

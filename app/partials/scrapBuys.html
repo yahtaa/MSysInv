@@ -1,15 +1,17 @@
 
-<div ng-repeat="quo in quote">	<table>
+<div class="container" ng-repeat="quo in quote()">{{quo}}	
+	<table class="table table-striped">
 		<tr>
 			<th>Customer Name</th>
 			<th>Purchase Order #</th>
 			<th>PO Total</th>
+			<th></th>
 		</tr>
 		<tr>
 			<td> Todo</td>
-			<td>{{quo._id.$oid}}</td>
-			<td>{{quo.total}}</td>
-			<td>{{quo.createdOn | date:'medium'}}</td>
+			<td> <a href="#/scrap/{{quo._id.$oid}}"><i class="icon-pencil">{{ quo._id.$oid }}</i></a></td>
+			<td> {{ offerTotal() | currency}} </td>
+			<td>{{ quo.createdOn | date:'medium' }}</td>
 		</tr>
 	</table>
 </div>
