@@ -1,4 +1,4 @@
-<form class="message col-md-10" ng-repeat="content in messages">
+<form class="message col-md-10" ng-repeat="content in messages | orderBy: '-_id.$oid'">
 
 	<h2>{{content.title}}</h2>
 	<p>{{content.message}}</p>
